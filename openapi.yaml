@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: URL Shortener
+  description: This is a set of apis to manage URL shortener functionalities
+  license:
+    name: URL Shortener
+  version: 1.0.0
+servers:
+- url: http://localhost:8000
+  description: Localhost Url
+tags:
+- name: Public
+  description: APIs for Management of the matrix Bot.
+paths:
+  /urls:
+    get:
+      tags:
+      - Public
+      summary: Fetch all the shortened urls.
+      description: |
+        Fetch all the shortened urls.
+      operationId: fetchAllUrls
+      parameters:
+      - name: url_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfully returned all available shortened urls.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                x-content-type: application/json
+              examples:
+                Return all the active rooms on the matrix server:
+                  value:
+                    message:
+                    - http;//short_url/0000001
+        "401":
+          description: Unauthorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        "404":
+          description: Incorrect endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+        "500":
+          description: Error in db connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+      x-swagger-router-controller: Public
+    post:
+      tags:
+      - Public
+      summary: Create shortened url.
+      description: |
+        Fetch all the shortened urls.
+      operationId: shortenUrl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/urls_body'
+      responses:
+        "200":
+          description: Successfully returned all available shortened urls.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                x-content-type: application/json
+              examples:
+                Return all the active rooms on the matrix server:
+                  value:
+                    message: Successfulle created the short url
+        "401":
+          description: Unauthorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        "404":
+          description: Incorrect endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+        "500":
+          description: Error in db connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+      x-swagger-router-controller: Public
+components:
+  schemas:
+    UnexpectedErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Internal server error.
+    BadRequestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    UnauthorizedResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Invalid Authentication
+    inline_response_404:
+      properties:
+        message:
+          type: string
+          example: Resource not found.
+    inline_response_422:
+      properties:
+        message:
+          type: string
+    inline_response_500:
+      properties:
+        status:
+          type: number
+          example: 500
+        message:
+          type: string
+          example: Internal Server Error
+    urls_body:
+      type: object
+      properties:
+        original_url:
+          type: string
+          example: http://some_random_url.com
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: apikey
+      in: query
