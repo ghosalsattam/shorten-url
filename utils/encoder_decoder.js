@@ -1,3 +1,11 @@
+
+/**
+ * 
+ * @param {String} id ID to encode an integer to base 64 
+ * @returns base64 encoded encryption.
+ * 
+ * Base 64 encrypts a number and return base64 encoded string.
+ */
 exports.encode=function(id){
     let characters="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     let base=characters.length
@@ -14,6 +22,12 @@ exports.encode=function(id){
     return resp
 }
 
+/**
+ * 
+ * @param {String} id 
+ * @returns 
+ * Decode base 64 encoded string and return the decoded id.
+ */
 exports.decode=function(id){
     let characters="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     let base=characters.length
