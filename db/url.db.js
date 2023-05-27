@@ -11,7 +11,7 @@ let urlModel=require("../models/url.model");
 exports.findUrl=async function(shortened_url){
     let docs;
     if(!shortened_url){
-        docs=await urlModel.find().sort().exec();
+        docs=await urlModel.find();
     }else{
         docs=await urlModel.find({url_id: shortened_url.split("/")[shortened_url.split("/").length-1]})
     }
@@ -52,6 +52,7 @@ exports.fetchLatestShortenedUrl=async function(){
             return docs[0];
     }catch(e){
         console.log(e);
+        throw("Unexpected Error")
     }
 }
 
@@ -70,6 +71,5 @@ exports.saveUrl= async function(url, url_id){
         original_url: url
     });
     let docs=await url1.save();
-    console.log("Docs=", docs);
     return docs;
 }

@@ -58,7 +58,6 @@ exports.shortenUrl = async function(body) {
         )
       }
       else{
-        console.log("Calling save url....");
         let last_url_id=await urlDb.fetchLatestShortenedUrl();
         if(!last_url_id){
           let res=await urlDb.saveUrl(original_url, "0000000");
@@ -71,16 +70,12 @@ exports.shortenUrl = async function(body) {
           return response_messge;
         }else{
             let decoded_url=encode_decode_util.decode(last_url_id);
-            console.log("last_decoded_url", decoded_url);
             let new_url=decoded_url+1;
-            console.log("new id", new_url)
             let new_encoded_url=encode_decode_util.encode(new_url);
-            console.log("new_encoded_url", new_encoded_url);
       
             var res=await urlDb.saveUrl(original_url, new_encoded_url);
             res["shortened_url"]=`https://short-url.ly/${res.url_id}`
             delete res["url_id"]
-            console.log("********", typeof res);
             let response_messge={
               message: "Successfully created the shortened url",
               original_url: res.original_url,

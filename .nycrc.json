@@ -1,0 +1,15 @@
+{
+    "all": true,
+    "exclude": [
+        "index.js",
+        "conf",
+        "controllers",
+        "router",
+        "mochawesome-report",
+        "coverage/lcov-report/*.js",
+        "test",
+        "models/**/*.js",
+        "utils/writer.js",
+        "db/db.js"
+    ]
+}
