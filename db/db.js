@@ -2,36 +2,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://yavid67393:sattamghosal@cluster0.tuvmeou.mongodb.net/?retryWrites=true&w=majority";
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-// const client = new MongoClient(uri, {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   }
-// });
-
-// async function run() {
-//   try {
-//     // Connect the client to the server	(optional starting in v4.7)
-//     await client.connect();
-//     // Send a ping to confirm a successful connection
-//     await client.db("sample-url-database").command({ ping: 1 });
-//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-//   } finally {
-//     // Ensures that the client will close when you finish/error
-//     await client.close();
-//   }
-// }
-// run().catch(console.dir);
-
-
-
-
-
-
-
-
 //require mongoose module
 const mongoose = require("mongoose");
 const wait = (ms) => {
@@ -40,14 +10,17 @@ const wait = (ms) => {
   });
 };
 
-//export this function and imported by server.js
+/**
+ * 
+ * @param {Number} reconnect: Number of reconnection attempts to be made.
+ * A function to establish a connection to the mongodb server. 
+ */
 module.exports.dbConnect = async function (reconnect = 1) {
   try {
     const options = {
       minPoolSize: 10
     };
-    await mongoose.connect(uri, options);
-    //mongoose.set('useFindAndModify', false);
+    await mongoose.connect(uri, options);//connect to mongo
 
     mongoose.connection.on("connected", function () {
       console.log("Mongoose default connection is open");
