@@ -16,12 +16,12 @@ paths:
     get:
       tags:
       - Public
-      summary: Fetch all the shortened urls.
+      summary: Fetch all the shortened urls. If any specific shortened url is given, then only the corresponding result is given. Else all the  shortened_url and their corresponding original url is returned.
       description: |
         Fetch all the shortened urls.
       operationId: fetchAllUrls
       parameters:
-      - name: url_id
+      - name: shortened_url
         in: query
         required: false
         style: form
@@ -41,8 +41,8 @@ paths:
               examples:
                 Return all the active rooms on the matrix server:
                   value:
-                    message:
-                    - http;//short_url/0000001
+                    - "shortened_url": "https://short-url.ly/0000000"
+                      "original_url": "https://wikipedia0.com"
         "401":
           description: Unauthorized user
           content:
@@ -76,18 +76,21 @@ paths:
               $ref: '#/components/schemas/urls_body'
       responses:
         "200":
-          description: Successfully returned all available shortened urls.
+          description: Successfully created the shortened url.
           content:
             application/json:
               schema:
-                type: array
+                type: object
                 items:
                   type: object
                 x-content-type: application/json
               examples:
-                Return all the active rooms on the matrix server:
+                Successfully created short url:
                   value:
-                    message: Successfulle created the short url
+                    message: Successfully created the short url
+                    original_url: https://wikipedia.com
+                    shortened_url: https://shortened_url.ly/0000000
+                    timestamp: "2022-03-12T15:12:34.123"
         "401":
           description: Unauthorized user
           content:
