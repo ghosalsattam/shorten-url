@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "nodemon index.js",
-    "dev-test": "nyc --all --reporter=lcov --reporter=text mocha 'test/**/*.test.js' --reporter mochawesome --exit --timeout 20000"
+    "dev-test": "npm install && nyc --all --reporter=lcov --reporter=text mocha 'test/**/*.test.js' --reporter mochawesome --exit --timeout 20000"
   },
   "keywords": [
     "swagger"

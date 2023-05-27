@@ -1,7 +1,7 @@
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://yavid67393:sattamghosal@cluster0.tuvmeou.mongodb.net/?retryWrites=true&w=majority";
-
+let conf=require("../conf/conf");
+const uri = conf.mongoUrl;
 //require mongoose module
 const mongoose = require("mongoose");
 const wait = (ms) => {

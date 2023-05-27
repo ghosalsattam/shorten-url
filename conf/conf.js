@@ -1,0 +1,1 @@
+exports.mongoUrl="mongodb+srv://yavid67393:sattamghosal@cluster0.tuvmeou.mongodb.net/?retryWrites=true&w=majority";
