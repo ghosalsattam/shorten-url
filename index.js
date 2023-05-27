@@ -7,7 +7,11 @@ let bodyParser =require("body-parser");
 let cors =require("cors");
 let YAML =require('yaml');
 let swaggerUi =require("swagger-ui-express");
+let dbConn=require("./db/db.js");
+require("./db/url.db.js");
 let fs =require("fs");
+
+dbConn.dbConnect();
 
 const file  = fs.readFileSync('./openapi.yaml', 'utf8')
 const swaggerDocument = YAML.parse(file)
@@ -34,5 +38,6 @@ app.use("*", function (req, res) {
 http.createServer(app).listen(serverPort, function () {
     console.log('\x1b[35m%s\x1b[0m',`\n\n\nYour server is listening on port ${serverPort} (http://localhost:${serverPort})`);
     console.log('\x1b[35m%s\x1b[0m',`Swagger-ui is available on http://localhost:${serverPort}/api-docs. Open the link to view the swagger docs\n\n\n`);
+    
 });
 
